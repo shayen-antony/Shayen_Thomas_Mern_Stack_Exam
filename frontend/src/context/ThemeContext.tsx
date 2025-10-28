@@ -27,12 +27,22 @@ export const ThemeContextProvider: React.FC<{ children: React.ReactNode }> = ({ 
     const theme = createTheme({
         palette: {
             mode: darkMode ? 'dark' : 'light',
+            // Replace default blue with red
             primary: {
-                main: '#1976d2',
+                main: '#d32f2f', // MUI red 700-ish
             },
             secondary: {
                 main: '#dc004e',
             },
+            // Background colors for light/dark modes
+            background: {
+                default: darkMode ? '#072b07' : '#e8f5e9', // dark green / light green
+                paper: darkMode ? '#0b3d0b' : '#ffffff'
+            },
+            // Keep contrast text automatic, but explicitly set text color for clarity
+            text: {
+                primary: darkMode ? '#e8f5e9' : 'rgba(0,0,0,0.87)'
+            }
         },
     });
 
