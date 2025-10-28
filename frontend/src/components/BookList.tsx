@@ -139,7 +139,9 @@ export const BookList: React.FC<BookListProps> = ({
                                 <TableCell>{book.title}</TableCell>
                                 <TableCell>{book.author}</TableCell>
                                 <TableCell>{book.genre}</TableCell>
-                                <TableCell>${book.price.toFixed(2)}</TableCell>
+                                <TableCell>
+                                    {`₹${book.price.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}
+                                </TableCell>
                                 <TableCell>{book.stock}</TableCell>
                                 <TableCell>{book.publishedYear}</TableCell>
                                 <TableCell>

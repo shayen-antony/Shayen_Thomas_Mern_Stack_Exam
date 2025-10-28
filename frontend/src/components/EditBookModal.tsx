@@ -126,11 +126,12 @@ export const EditBookModal: React.FC<EditBookModalProps> = ({
                                 label="Price"
                                 name="price"
                                 type="number"
+                                inputProps={{ min: 0, step: '0.01' }}
                                 value={formData.price || ''}
                                 onChange={handleChange}
                                 variant="outlined"
                                 InputProps={{
-                                    startAdornment: <Typography variant="body2">$</Typography>
+                                    startAdornment: <Typography variant="body2">₹</Typography>
                                 }}
                             />
                             <TextField
@@ -139,6 +140,7 @@ export const EditBookModal: React.FC<EditBookModalProps> = ({
                                 label="Stock"
                                 name="stock"
                                 type="number"
+                                inputProps={{ min: 0, step: '1' }}
                                 value={formData.stock || ''}
                                 onChange={handleChange}
                                 variant="outlined"

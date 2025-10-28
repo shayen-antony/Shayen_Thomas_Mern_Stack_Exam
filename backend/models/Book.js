@@ -15,14 +15,24 @@ const bookSchema = new mongoose.Schema({
     },
     price: { 
         type: Number, 
-        required: true 
+        required: true,
+        min: [0, 'Price cannot be negative']
     },
     stock: { 
         type: Number, 
-        default: 0 
+        default: 0,
+        min: [0, 'Stock cannot be negative']
     },
     publishedYear: { 
-        type: Number 
+        type: Number,
+        validate: {
+            validator: function (v) {
+                if (v == null) return true;
+                const year = new Date().getFullYear();
+                return Number.isInteger(v) && v >= 0 && v <= year;
+            },
+            message: props => `${props.value} is not a valid publication year`
+        }
     },
     createdAt: { 
         type: Date, 

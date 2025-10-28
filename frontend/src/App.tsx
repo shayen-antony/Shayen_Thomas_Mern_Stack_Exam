@@ -65,7 +65,7 @@ const AppContent = () => {
             <AppBar position="static">
                 <Toolbar>
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                        Book Inventory Management
+                        Shayen's Mern Stack Bookstore
                     </Typography>
                     <IconButton color="inherit" onClick={toggleDarkMode}>
                         {darkMode ? <Brightness7 /> : <Brightness4 />}

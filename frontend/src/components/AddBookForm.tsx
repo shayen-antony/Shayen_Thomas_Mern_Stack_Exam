@@ -111,14 +111,15 @@ export const AddBookForm: React.FC<AddBookFormProps> = ({ open, onClose, onBookA
                         }}>
                             <StyledTextField
                                 required
-                                label="Price"
+                                label="Price (INR)"
                                 name="price"
                                 type="number"
+                                inputProps={{ min: 0, step: '0.01' }}
                                 value={book.price}
                                 onChange={handleChange}
                                 variant="outlined"
                                 InputProps={{
-                                    startAdornment: <Typography variant="body2">$</Typography>
+                                    startAdornment: <Typography variant="body2">₹</Typography>
                                 }}
                             />
                             <StyledTextField
@@ -126,6 +127,7 @@ export const AddBookForm: React.FC<AddBookFormProps> = ({ open, onClose, onBookA
                                 label="Stock"
                                 name="stock"
                                 type="number"
+                                inputProps={{ min: 0, step: '1' }}
                                 value={book.stock}
                                 onChange={handleChange}
                                 variant="outlined"
