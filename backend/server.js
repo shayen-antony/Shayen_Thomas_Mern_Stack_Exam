@@ -41,6 +41,10 @@ app.use(cors(corsOptions));
 app.use(express.json());
 app.use(morgan('dev'));
 
+// Ensure preflight (OPTIONS) requests receive the proper CORS headers
+// Use a regex route to avoid path-to-regexp parsing issues with some Express versions
+app.options(/.*/, cors(corsOptions));
+
 // Routes
 app.use('/api/books', bookRoutes);
 
@@ -50,6 +54,7 @@ mongoose.connect(process.env.MONGODB_URI)
     .catch((error) => console.error('MongoDB connection error:', error));
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
+// Bind to 0.0.0.0 so external proxies (Codespaces / container port forwarding) can reach the server
+app.listen(PORT, '0.0.0.0', () => {
     console.log(`Server is running on port ${PORT}`);
 });
