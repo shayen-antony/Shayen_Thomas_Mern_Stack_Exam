@@ -34,9 +34,21 @@ const AppContent = () => {
     const fetchBooks = async (search?: string, genre?: string, author?: string) => {
         try {
             const response = await bookService.getBooks(search, genre, author);
-            setBooks(response.books);
-            setTotalBooks(response.meta.total);
-            setOutOfStock(response.meta.outOfStock);
+            // Backend may return either { books, meta } or an array of books.
+            if (Array.isArray(response)) {
+                setBooks(response);
+                setTotalBooks(response.length);
+                setOutOfStock(response.filter((b: any) => b.stock === 0).length);
+            } else if (response && response.books) {
+                setBooks(response.books);
+                setTotalBooks(response.meta?.total ?? response.books.length);
+                setOutOfStock(response.meta?.outOfStock ?? response.books.filter((b: any) => b.stock === 0).length);
+            } else {
+                // Fallback: empty
+                setBooks([]);
+                setTotalBooks(0);
+                setOutOfStock(0);
+            }
         } catch (error) {
             console.error('Error fetching books:', error);
         }

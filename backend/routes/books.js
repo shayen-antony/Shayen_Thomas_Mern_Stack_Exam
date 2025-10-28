@@ -18,17 +18,9 @@ router.get('/', async (req, res) => {
             query.author = author;
         }
 
-        const books = await Book.find(query);
-        const totalBooks = await Book.countDocuments();
-        const outOfStock = await Book.countDocuments({ stock: 0 });
-
-        res.json({
-            books,
-            meta: {
-                total: totalBooks,
-                outOfStock
-            }
-        });
+        // Return all books as a JSON array sorted by creation date (newest first)
+        const books = await Book.find(query).sort({ createdAt: -1 });
+        res.json(books);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
